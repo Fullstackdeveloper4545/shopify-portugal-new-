@@ -1,0 +1,68 @@
+<section class="home-contact">
+  <div class="page-width">
+    <div class="home-contact__grid">
+      <div>
+        <h2>{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.text }}</p>
+      </div>
+      <div>
+        {%- form 'contact', class: 'home-contact__form' -%}
+          {% if form.posted_successfully? %}
+            <div class="home-contact__success">
+              {{ 'templates.contact.form.post_success' | t }}
+            </div>
+          {% endif %}
+
+          <div>
+            <label for="ContactFormName">Nome</label>
+            <input type="text" name="contact[name]" id="ContactFormName" value="{{ form.name }}" required>
+          </div>
+          <div>
+            <label for="ContactFormPhone">Telefone</label>
+            <input type="tel" name="contact[phone]" id="ContactFormPhone" value="{{ form.phone }}">
+          </div>
+          <div>
+            <label for="ContactFormEmail">Email</label>
+            <input type="email" name="contact[email]" id="ContactFormEmail" value="{{ form.email }}" required>
+          </div>
+          <div>
+            <label for="ContactFormMessage">Mensagem</label>
+            <textarea name="contact[body]" id="ContactFormMessage">{{ form.body }}</textarea>
+          </div>
+          <button type="submit" class="gb-btn">{{ section.settings.button_label }}</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home contacto",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Tem dúvidas sobre os nossos produtos, encomendas ou assistência técnica?"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texto",
+      "default": "Estamos aqui para ajudar. Preencha o formulário e responderemos com a maior brevidade possível."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Enviar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home contacto"
+    }
+  ]
+}
+{% endschema %}

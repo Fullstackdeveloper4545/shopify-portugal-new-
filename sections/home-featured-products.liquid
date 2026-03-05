@@ -1,0 +1,217 @@
+<section class="home-products">
+  <div class="page-width">
+    {% unless section.settings.hide_header %}
+      <div class="home-products__header">
+        <div>
+          <h2 class="home-products__title">{{ section.settings.heading | default: 'Produtos' | replace: '\\n', '\n' | newline_to_br }}</h2>
+          {% assign products_subheading_raw = section.settings.subheading | default: 'Na GlobalBrico encontra uma ampla gama de produtos de bricolage, construção, ferramentas, jardinagem e decoração.' %}
+          {% assign products_subheading_clean = products_subheading_raw | replace: '\\n', '\n' %}
+          <p class="home-products__text">{{ products_subheading_clean | newline_to_br }}</p>
+        </div>
+        {% if section.settings.button_label != blank %}
+          <a class="gb-btn home-products__cta" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        {% endif %}
+      </div>
+    {% endunless %}
+
+    <div class="home-products__grid">
+      {% assign featured_collection = collections[section.settings.collection] %}
+      {% if featured_collection != blank %}
+        {% for product in featured_collection.products limit: section.settings.products_to_show %}
+          <a class="home-product-card" href="{{ product.url }}" aria-label="{{ product.title }}">
+            <div class="home-product-card__image">
+              {% assign placeholder = 'placeholder.png' | asset_url %}
+              {% if product.featured_media %}
+                {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy' }}
+              {% else %}
+                <img src="{{ placeholder }}" alt="{{ product.title }}" loading="lazy" style="width:100%;height:180px;object-fit:contain;background:#fff;">
+              {% endif %}
+            </div>
+            <div>
+              <h3 style="margin:0 0 6px;">{{ product.title }}</h3>
+              <div class="home-product-card__price">
+                {% liquid
+                  assign price_str = product.price | money
+                  assign price_parts = price_str | split: ','
+                  assign price_whole = price_parts[0]
+                  assign price_cents = price_parts[1]
+                  assign compare_str = product.compare_at_price_max | money
+                  assign compare_parts = compare_str | split: ','
+                  assign compare_whole = compare_parts[0]
+                  assign compare_cents = compare_parts[1]
+                %}
+                {% if product.compare_at_price_max > product.price %}
+                  <span class="home-price">
+                    <span class="home-price__whole">{{ price_whole }}</span>
+                    {% if price_cents %}
+                      <sup class="home-price__cents">,{{ price_cents }}</sup>
+                    {% endif %}
+                  </span>
+                  <span class="home-price home-price--compare">
+                    <span class="home-price__whole">{{ compare_whole }}</span>
+                    {% if compare_cents %}
+                      <sup class="home-price__cents">,{{ compare_cents }}</sup>
+                    {% endif %}
+                  </span>
+                {% else %}
+                  <span class="home-price">
+                    <span class="home-price__whole">{{ price_whole }}</span>
+                    {% if price_cents %}
+                      <sup class="home-price__cents">,{{ price_cents }}</sup>
+                    {% endif %}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+            <span class="gb-btn home-product-card__btn">{{ section.settings.product_button_label }}</span>
+          </a>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <a class="home-product-card" href="#" aria-label="Produto exemplo {{ i }}">
+            {% if i == 1 %}
+              <div class="home-product-card__image">
+                <img src="{{ '69ed603c5bde711f43c0a4ce82be83dd7273.jpg' | asset_url }}" alt="Martelo Combinado KH 5 G AEG" loading="lazy" style="width:100%;height:180px;object-fit:contain;background:#fff;">
+              </div>
+              <h3 style="margin:12px 0 6px;">Martelo Combinado KH 5 G AEG</h3>
+              {% liquid
+                assign price_str = 50000 | money
+                assign price_parts = price_str | split: ','
+                assign price_whole = price_parts[0]
+                assign price_cents = price_parts[1]
+              %}
+              <div class="home-product-card__price">
+                <span class="home-price">
+                  <span class="home-price__whole">{{ price_whole }}</span>
+                  {% if price_cents %}
+                    <sup class="home-price__cents">,{{ price_cents }}</sup>
+                  {% endif %}
+                </span>
+              </div>
+              <span class="gb-btn home-product-card__btn">{{ section.settings.product_button_label }}</span>
+            {% elsif i == 2 %}
+              <div class="home-product-card__image">
+                <img src="{{ '9f6783217678b36f2d3b35d230f2231a1af80233.jpg' | asset_url }}" alt="1,90 M Carril Sup. IN.15. 953 Fixação ao Teto Inox" loading="lazy" style="width:100%;height:180px;object-fit:contain;background:#fff;transform:scale(1.5);">
+              </div>
+              <h3 style="margin:12px 0 6px;">1,90 M Carril Sup. IN.15. 953 Fixação ao Teto Inox</h3>
+              <div class="home-product-card__price">
+                <span class="home-price">
+                  <span class="home-price__whole">{{ price_whole }}</span>
+                  {% if price_cents %}
+                    <sup class="home-price__cents">,{{ price_cents }}</sup>
+                  {% endif %}
+                </span>
+              </div>
+              <span class="gb-btn home-product-card__btn">{{ section.settings.product_button_label }}</span>
+            {% elsif i == 3 %}
+              <div class="home-product-card__image">
+                <img src="{{ '4047cab007956911e8f128b68b16d98192f426b6.jpg' | asset_url }}" alt="1 kg Aquaprotect Professional SILIC. MS LIQ. BRANCO" loading="lazy" style="width:100%;height:180px;object-fit:contain;background:#fff;">
+              </div>
+              <h3 style="margin:12px 0 6px;">1 kg Aquaprotect Professional SILIC. MS LIQ. BRANCO</h3>
+              <div class="home-product-card__price">
+                <span class="home-price">
+                  <span class="home-price__whole">{{ price_whole }}</span>
+                  {% if price_cents %}
+                    <sup class="home-price__cents">,{{ price_cents }}</sup>
+                  {% endif %}
+                </span>
+              </div>
+              <span class="gb-btn home-product-card__btn">{{ section.settings.product_button_label }}</span>
+            {% elsif i == 4 %}
+              <div class="home-product-card__image">
+                <img src="{{ '72a29bf35d451169efa6c142aaf839e945750a57.jpg' | asset_url }}" alt="Corta relva a gas. c/tração 46cm Sioux 855 ZSG-V23 Garland" loading="lazy" style="width:100%;height:180px;object-fit:contain;background:#fff;">
+              </div>
+              <h3 style="margin:12px 0 6px;">Corta relva a gas. c/tração 46cm Sioux 855 ZSG-V23 Garland</h3>
+              <div class="home-product-card__price">
+                <span class="home-price">
+                  <span class="home-price__whole">{{ price_whole }}</span>
+                  {% if price_cents %}
+                    <sup class="home-price__cents">,{{ price_cents }}</sup>
+                  {% endif %}
+                </span>
+              </div>
+              <span class="gb-btn home-product-card__btn">{{ section.settings.product_button_label }}</span>
+            {% else %}
+              {% assign placeholder = 'placeholder.png' | asset_url %}
+              <div class="home-product-card__image">
+                <img src="{{ placeholder }}" alt="Produto exemplo {{ i }}" loading="lazy" style="width:100%;height:180px;object-fit:contain;background:#fff;">
+              </div>
+              <h3 style="margin:12px 0 6px;">Produto exemplo {{ i }}</h3>
+              <div class="home-product-card__price">
+                <span class="home-price">
+                  <span class="home-price__whole">{{ price_whole }}</span>
+                  {% if price_cents %}
+                    <sup class="home-price__cents">,{{ price_cents }}</sup>
+                  {% endif %}
+                </span>
+              </div>
+              <span class="gb-btn home-product-card__btn">{{ section.settings.product_button_label }}</span>
+            {% endif %}
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home produtos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Produtos"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Descubra os produtos GlobalBrico e torne os seus projetos de bricolage,\nconstrução mais simples, rápidos e económicos."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Produtos a mostrar"
+    },
+    {
+      "type": "text",
+      "id": "product_button_label",
+      "label": "Texto do botão do produto",
+      "default": "Comprar"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Comprar"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_header",
+      "label": "Ocultar cabeçalho",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home produtos"
+    }
+  ]
+}
+{% endschema %}

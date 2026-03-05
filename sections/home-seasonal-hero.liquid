@@ -1,0 +1,81 @@
+{% assign hero_image = section.settings.image %}
+{% capture hero_image_url %}
+  {% if hero_image != blank %}
+    {{ hero_image | image_url: width: 1600 }}
+  {% else %}
+    {{ '8833ba0147ce2f82130ead89321c660d84aea03b.png' | asset_url }}
+  {% endif %}
+{% endcapture %}
+{% assign hero_image_alt = section.settings.image_alt | default: 'Preparar para o Outono' %}
+<section class="home-seasonal-hero section-space" style="background-image: url('{{ hero_image_url | strip }}');">
+  <div class="home-seasonal-hero__overlay"></div>
+  <div class="page-width">
+    <div class="home-seasonal-hero__inner">
+      {% assign hero_heading_text = section.settings.heading | newline_to_br %}
+      {% assign hero_subheading_text = section.settings.subheading | newline_to_br %}
+
+      <h2>
+        {{ hero_heading_text | raw }}
+      </h2>
+      <p>
+        {{ hero_subheading_text | raw }}
+      </p>
+      {% if section.settings.button_label != blank %}
+        <a
+          href="{{ section.settings.button_link | default: '/pages/sazonais' }}"
+          class="gb-btn home-seasonal-hero__cta"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Seasonal hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "Preparar para o Outono"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Já está pronto\npara o Outono?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Produtos essenciais para manter a sua casa\nconfortável e o jardim pronto para a estação."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Comprar"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Seasonal hero"
+    }
+  ]
+}
+{% endschema %}

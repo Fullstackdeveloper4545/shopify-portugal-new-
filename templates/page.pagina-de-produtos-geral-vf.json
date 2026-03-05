@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "hero": {
+      "type": "home-hero",
+      "settings": {}
+    },
+    "main": {
+      "type": "page-prod-geral",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "main"
+  ]
+}

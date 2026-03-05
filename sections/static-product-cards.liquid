@@ -1,0 +1,68 @@
+{%- capture static_cards -%}
+/cdn/shop/t/3/assets/69ed603c5bde711f43c0a4ce82be83dd7273.jpg?v=67847962963754469401764584627|Martelo Combinado KH 5 G AEG|€500,85,
+/cdn/shop/t/3/assets/9f6783217678b36f2d3b35d230f2231a1af80233.jpg?v=32993612200672142021764584761|1,90 M Carril Sup. IN.15. 953 Fixação ao Teto Inox|€500,85,
+/cdn/shop/t/3/assets/4047cab007956911e8f128b68b16d98192f426b6.jpg?v=98915371404840509631764584814|1 kg Aquaprotect Professional SILIC. MS LIQ. BRANCO|€79,90,
+/cdn/shop/t/3/assets/72a29bf35d451169efa6c142aaf839e945750a57.jpg?v=150175865089438296651764585323|Corta relva a gas. c/tração 46cm Sioux 855 ZSG-V23 Garland|€1.250,00,
+/cdn/shop/t/3/assets/69ed603c5bde711f43c0a4ce82be83dd7273.jpg?v=67847962963754469401764584627|Martelo Combinado KH 5 G AEG|€500,85,
+/cdn/shop/t/3/assets/9f6783217678b36f2d3b35d230f2231a1af80233.jpg?v=32993612200672142021764584761|1,90 M Carril Sup. IN.15. 953 Fixação ao Teto Inox|€500,85,
+/cdn/shop/t/3/assets/4047cab007956911e8f128b68b16d98192f426b6.jpg?v=98915371404840509631764584814|1 kg Aquaprotect Professional SILIC. MS LIQ. BRANCO|€79,90,
+/cdn/shop/t/3/assets/72a29bf35d451169efa6c142aaf839e945750a57.jpg?v=150175865089438296651764585323|Corta relva a gas. c/tração 46cm Sioux 855 ZSG-V23 Garland|€1.250,00,
+/cdn/shop/t/3/assets/69ed603c5bde711f43c0a4ce82be83dd7273.jpg?v=67847962963754469401764584627|Martelo Combinado KH 5 G AEG|€500,85,
+/cdn/shop/t/3/assets/9f6783217678b36f2d3b35d230f2231a1af80233.jpg?v=32993612200672142021764584761|1,90 M Carril Sup. IN.15. 953 Fixação ao Teto Inox|€500,85,
+/cdn/shop/t/3/assets/4047cab007956911e8f128b68b16d98192f426b6.jpg?v=98915371404840509631764584814|1 kg Aquaprotect Professional SILIC. MS LIQ. BRANCO|€79,90,
+/cdn/shop/t/3/assets/72a29bf35d451169efa6c142aaf839e945750a57.jpg?v=150175865089438296651764585323|Corta relva a gas. c/tração 46cm Sioux 855 ZSG-V23 Garland|€1.250,00
+{%- endcapture -%}
+{%- assign cards = static_cards | split: ',' -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="static-grid">
+      {%- for entry in cards -%}
+        {%- assign parts = entry | strip | split: '|' -%}
+        {%- if parts.size == 3 -%}
+          <div class="static-card">
+            <div class="static-card__img">
+              <img src="{{ parts[0] }}" alt="{{ parts[1] | escape }}" loading="lazy">
+            </div>
+            <div class="static-card__body">
+              <h3>{{ parts[1] }}</h3>
+              <p class="static-card__price">{{ parts[2] }}</p>
+              <a class="static-card__btn" href="#">Comprar</a>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Produtos (estático)",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 24,
+      "label": "Padding superior"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 24,
+      "label": "Padding inferior"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produtos (estático)"
+    }
+  ]
+}
+{% endschema %}

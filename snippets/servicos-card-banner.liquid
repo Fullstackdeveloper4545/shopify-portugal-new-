@@ -1,0 +1,98 @@
+<style>
+  .servicos-card-banner {
+    padding:20px 0px;
+    display:flex;
+    justify-content:center;
+  }
+  .servicos-card-banner__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1240px;
+  }
+  .servicos-card-banner__inner > * {
+    flex: 1 1 45%;
+    min-width: 280px;
+  }
+  .servicos-card-banner__media {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  }
+  .servicos-card-banner__media img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+  .servicos-card-banner__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin: 0 0 18px;
+    color: #111111;
+  }
+  .servicos-card-banner__body {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.6;
+    letter-spacing: 0;
+    margin: 0;
+    display: grid;
+    gap: 18px;
+    color: #1f1f1f;
+  }
+  .servicos-card-banner__body strong {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+  @media (max-width: 749px) {
+    .servicos-card-banner__inner {
+      flex-direction: column;
+      gap: 32px;
+    }
+    .servicos-card-banner__inner > * {
+      flex: 1 1 100%;
+      min-width: auto;
+    }
+    .servicos-card-banner {
+      padding: 24px 0 56px;
+    }
+    .servicos-card-banner__media {
+      max-width: 100%;
+      border-radius: 18px;
+    }
+    .servicos-card-banner__title {
+      font-size: 32px;
+      line-height: 1.25;
+    }
+  }
+</style>
+
+<section class="servicos-card-banner">
+  <div class="page-width">
+    <div class="servicos-card-banner__inner">
+      <div class="servicos-card-banner__media">
+        <img src="{{ '97718ac0d18b967f20d355280ddea6f2648bc4fe.png' | asset_url }}" alt="Cartão de Cliente GlobalBrico" loading="lazy">
+      </div>
+      <div>
+        <h2 class="servicos-card-banner__title">Cartão de Cliente<br />GlobalBrico</h2>
+        <div class="servicos-card-banner__body">
+          <p>Com o <strong>Cartão de Cliente GlobalBrico</strong>, ganha<br />acesso a descontos exclusivos, campanhas<br/>especiais, ofertas personalizadas e benefícios em<br />cada compra.</p>
+          <p>É gratuito, fácil de aderir e válido tanto online como<br />em loja!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

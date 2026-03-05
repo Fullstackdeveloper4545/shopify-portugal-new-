@@ -1,0 +1,88 @@
+{%- assign slider_id = slider_id | default: 'catalog-blog-highlights' -%}
+
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ slider_id }} .home-blog__grid.slider {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: stretch;
+    gap: var(--gb-space-12);
+
+  }
+
+  .section-{{ slider_id }} .home-blog__card.slider__slide {
+    width: 320px;
+    flex: 0 0 320px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .section-{{ slider_id }} .home-blog__grid.slider {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 16px;
+    }
+
+    .section-{{ slider_id }} .home-blog__grid.slider .home-blog__card.slider__slide {
+      flex: 0 0 100%;
+      min-width: 100%;
+      scroll-snap-align: center;
+      border-radius: 18px;
+      margin: 0;
+    }
+
+    .section-{{ slider_id }} .home-blog__grid.slider .home-blog__card.slider__slide img {
+      border-radius: 14px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="home-blog home-blog--catalog section-{{ slider_id }}">
+  <div class="page-width">
+    <div class="home-products__header">
+      <div>
+        <h2 class="home-products__title">Dicas de Bricolagem, Casa e Jardim</h2>
+        <p class="home-products__text">Inspire-se com conteúdos práticos e dicas úteis para os seus projetos de bricolagem, decoração, jardinagem e manutenção da casa.</p>
+      </div>
+    </div>
+
+    <slider-component class="slider-mobile-gutter">
+      <div
+        id="Slider-{{ slider_id }}"
+        class="home-blog__grid home-blog__grid--catalog slider slider--mobile grid"
+        role="list"
+        aria-label="{{ 'general.slider.name' | t }}"
+      >
+        <article
+          id="Slide-{{ slider_id }}-1"
+          class="home-blog__card slider__slide grid__item"
+          role="listitem"
+        >
+          <img src="{{ '3ce8e61c69bb8e153c122e2c8c6fa3aa907e5f26.jpg' | asset_url }}" alt="Artigo catálogo 1" loading="lazy">
+          <div class="home-blog__body">
+            <h3>Crie superfícies perfeitas com lixadoras profissionais</h3>
+            <small>December 5, 2025</small>
+            <a class="gb-btn" href="#">Ler artigo</a>
+          </div>
+        </article>
+        <article
+          id="Slide-{{ slider_id }}-2"
+          class="home-blog__card slider__slide grid__item"
+          role="listitem"
+        >
+          <img src="{{ '18adb5906584fb8739abaaa3296fe782775d26b1.png' | asset_url }}" alt="Artigo catálogo 2" loading="lazy">
+          <div class="home-blog__body">
+            <h3>Ferramentas essenciais para acabamento de madeira</h3>
+            <small>December 5, 2025</small>
+            <a class="gb-btn" href="#">Ler artigo</a>
+          </div>
+        </article>
+        
+      </div>
+    </slider-component>
+  </div>
+</section>

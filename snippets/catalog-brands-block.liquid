@@ -1,0 +1,15 @@
+<section class="home-brands section-space home-brands--catalog">
+  <div class="page-width">
+    <div class="home-categories__header">
+      <h2 class="home-categories__title">Marcas</h2>
+    </div>
+    <div class="home-brands__row">
+      {% assign catalog_brands = '6e8e58b41f382fffe3ad95ddb5789f0a1e8c81b4.png|45b145ea07a05dd8ccf45a2550f154dd637f8fa7.png|67e24996ca7fc926cc289ada958c869cd41bde75.png|558042bfdbed2bdae8cd2af158c763789d0f5825.png|f66d2af6252c83721aa923585b62ce02fe3fa533.png' | split: '|' %}
+      {% for logo in catalog_brands %}
+        <div class="home-brands__item">
+          <img src="{{ logo | asset_url }}" alt="Marca" loading="lazy">
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

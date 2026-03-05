@@ -1,0 +1,120 @@
+{%- style -%}
+  .sazonais-hero {
+    padding: 48px 0;
+    background: #f76b1c linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(247, 107, 28, 0.08) 100%);
+    color: #fff;
+  }
+
+  .sazonais-hero__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    align-items: center;
+  }
+
+  .sazonais-hero__heading {
+    font-size: 32px;
+    line-height: 120%;
+    margin: 0 0 14px;
+  }
+
+  .sazonais-hero__text {
+    margin: 0 0 18px;
+    color: #ffeedd;
+    line-height: 150%;
+    font-size: 16px;
+  }
+
+  .sazonais-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sazonais-hero__media {
+    justify-self: center;
+    background: #fff;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .sazonais-hero__media img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .sazonais-breadcrumb {
+    margin: 24px 0 32px;
+  }
+
+  @media (max-width: 749px) {
+    .sazonais-hero {
+      padding: 40px 0;
+    }
+
+    .sazonais-hero__heading {
+      font-size: 26px;
+    }
+  }
+{%- endstyle -%}
+
+
+
+{%- assign breadcrumbs_label = 'general.breadcrumbs' | t -%}
+{%- if breadcrumbs_label contains 'Translation missing' -%}
+  {%- assign breadcrumbs_label = 'Breadcrumb' -%}
+{%- endif -%}
+{%- assign breadcrumbs_home_label = 'general.home' | t -%}
+{%- if breadcrumbs_home_label contains 'Translation missing' -%}
+  {%- assign breadcrumbs_home_label = 'Loja' -%}
+{%- endif -%}
+
+
+{% schema %}
+{
+  "name": "Página Sazonais",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Chamada curta",
+      "default": "Outono na GlobalBrico"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Prepare a sua casa e jardim para a nova estação"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Descrição",
+      "default": "Com a chegada do Outono, os dias tornam-se mais frios e acolhedores – é o momento ideal para reforçar o conforto, cuidar da casa e preparar o jardim."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão principal"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Link do botão secundário"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem destacada"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Página Sazonais"
+    }
+  ]
+}
+{% endschema %}

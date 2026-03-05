@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "hero": {
+      "type": "product-hero",
+      "settings": {
+        "hero_image": "a6fd3bca08ab5825088a72a6abf3b36e70d33c77.jpg",
+        "hero_heading": "Tudo o que precisa para bricolage,<br /> construção e jardim - num só lugar",
+        "hero_subheading": "Na GlobalBrico, encontra uma loja online completa com milhares<br /> de produtos de bricolage, construção, ferramentas, tintas,<br /> eletricidade, canalização e jardinagem."
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "home_newsletter": {
+      "type": "home-newsletter",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "main", "home_newsletter"]
+}

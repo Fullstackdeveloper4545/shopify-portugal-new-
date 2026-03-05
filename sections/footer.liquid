@@ -1,0 +1,92 @@
+<footer class="gb-footer">
+  <div class="page-width">
+    <div class="gb-footer__grid">
+      <div class="gb-footer__column">
+        <div class="gb-footer__logo">
+          <img src="{{ 'ba817d301cee7ff0e647f43db1727c6b0d523bf1.png' | asset_url }}" alt="Globalbrico" loading="lazy">
+        </div>
+        <div class="gb-footer__contact">
+          <p>R. da Botica Velha 2, 4595-094 Meixomil</p>
+          <p>(+351) 255 963 681</p>
+          <p>apoioaocliente@globalbrico.pt</p>
+          <p class="gb-footer__note">Custo chamada para a rede fixa nacional</p>
+        </div>
+        <div class="gb-footer__hours">
+          <h4>HORÁRIOS</h4>
+          <p><strong>Seg a Sex:</strong> 8h30–12h30<br>13h30–19h30</p>
+          <p><strong>Sáb:</strong> 9h–12h30 14h–19h</p>
+          <p><strong>Feriados:</strong> 9h–13h</p>
+        </div>
+      </div>
+
+      <div class="gb-footer__column">
+        <h4>MENU</h4>
+        <ul>
+          <li><a href="#">Globalbrico</a></li>
+          <li><a href="/pages/produtos">Produtos</a></li>
+          <li><a href="/pages/promocoes">Promoções</a></li>
+          <li><a href="#">Ferramentas</a></li>
+          <li><a href="#">Ferragens</a></li>
+          <li><a href="#">Pintura</a></li>
+          <li><a href="#">Jardim</a></li>
+          <li><a href="/pages/servicos">Serviços</a></li>
+          <li><a href="/pages/about-us">SOBRE NÓS</a></li>
+          <li><a href="/pages/blog">Blog</a></li>
+          <li><a href="/pages/contactos">Contactos</a></li>
+        </ul>
+      </div>
+
+      <div class="gb-footer__column">
+        <h4>CATEGORIAS</h4>
+        <ul>
+          <li><a href="#">Aquecimento e Climatização</a></li>
+          <li><a href="#">Arrumação</a></li>
+          <li><a href="#">Canalização</a></li>
+          <li><a href="#">Casas de Banho</a></li>
+          <li><a href="#">Construção</a></li>
+          <li><a href="#">Cozinhas</a></li>
+          <li><a href="#">Decoração e Tapetes</a></li>
+          <li><a href="#">Eletricidade</a></li>
+          <li><a href="#">Ferragens</a></li>
+          <li><a href="#">Ferramentas</a></li>
+          <li><a href="#">Iluminação</a></li>
+          <li><a href="#">Jardim</a></li>
+          <li><a href="#">Pavimentos e Revestimentos</a></li>
+          <li><a href="#">Pintura, Drogaria e Limpeza</a></li>
+          <li><a href="#">Portas, Janelas e Escadas</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gb-footer__bottom">
+      <div class="gb-footer__legal">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos e Condições</a>
+        <a href="#">Trocas e Devoluções</a>
+        <div class="gb-footer__copy">Globalbrico © 2025. Todos os direitos reservados.</div>
+      </div>
+      <div class="gb-footer__payments">
+        <img src="{{ 'New Project (2).png' | asset_url }}" alt="Métodos de pagamento" loading="lazy">
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Rodapé",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "bottom_text",
+      "label": "Texto inferior",
+      "default": "Globalbrico © 2025. Todos os direitos reservados."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rodapé"
+    }
+  ]
+}
+{% endschema %}

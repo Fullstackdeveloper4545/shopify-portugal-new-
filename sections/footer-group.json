@@ -1,0 +1,15 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "bottom_text": "Globalbrico © 2025. Todos os direitos reservados."
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

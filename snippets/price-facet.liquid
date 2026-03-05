@@ -1,0 +1,89 @@
+{%- liquid
+  assign raw_slider_max = filter.range_max | divided_by: 100.0
+  assign price_slider_max = raw_slider_max | at_most: 1200
+  assign price_slider_value_min = filter.min_value.value | default: 0 | divided_by: 100.0 | at_least: 0
+  assign price_slider_value_max = filter.max_value.value | default: filter.range_max | divided_by: 100.0 | at_most: price_slider_max
+  assign price_display_min = filter.min_value.value | default: 0 | money_without_currency
+  assign price_display_max = price_slider_value_max | money_without_currency
+  assign price_slider_max_cents = price_slider_max | times: 100 | round
+-%}
+
+<span class="field-currency">{{ cart.currency.symbol }}</span>
+
+<div class="field">
+  <input
+    class="field__input"
+    name="{{ filter.min_value.param_name }}"
+    id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
+    {%- if filter.min_value.value -%}
+      value="{{ filter.min_value.value | money_without_currency }}"
+    {%- endif -%}
+    type="text"
+    inputmode="decimal"
+    placeholder="0"
+    data-pattern="\d| |,|\."
+    data-min="0"
+    data-max="{{ price_slider_max_cents }}"
+  >
+  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">
+    {{- 'products.facets.from' | t -}}
+  </label>
+</div>
+
+{%- if filter_type != 'vertical' -%}
+  <span class="field-currency">{{ cart.currency.symbol }}</span>
+{%- endif -%}
+
+<div class="field">
+  <input
+    class="field__input"
+    name="{{ filter.max_value.param_name }}"
+    id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+    {%- if filter.max_value.value -%}
+      value="{{ filter.max_value.value | money_without_currency }}"
+    {%- endif -%}
+    type="text"
+    inputmode="decimal"
+    placeholder="{{ price_slider_max | times: 100 | money_without_currency }}"
+    data-pattern="\d| |,|\."
+    data-min="0"
+    data-max="{{ price_slider_max_cents }}"
+  >
+  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">
+    {{- 'products.facets.to' | t -}}
+  </label>
+</div>
+
+<div class="price-slider" data-price-slider data-price-max="{{ price_slider_max }}">
+  <div class="price-slider__values">
+    <span>
+      {{ cart.currency.symbol }}<span data-price-slider-value="min">{{ price_display_min }}</span>
+    </span>
+    <span>
+      {{ cart.currency.symbol }}<span data-price-slider-value="max">{{ price_display_max }}</span>
+    </span>
+  </div>
+  <div class="price-slider__track">
+    <div class="price-slider__range"></div>
+  </div>
+  <div class="price-slider__inputs">
+    <input
+      type="range"
+      class="price-slider__handle price-slider__handle--min"
+      min="0"
+      max="{{ price_slider_max }}"
+      step="1"
+      value="{{ price_slider_value_min }}"
+      aria-label="{{ 'products.facets.from' | t }}"
+    >
+    <input
+      type="range"
+      class="price-slider__handle price-slider__handle--max"
+      min="0"
+      max="{{ price_slider_max }}"
+      step="1"
+      value="{{ price_slider_value_max }}"
+      aria-label="{{ 'products.facets.to' | t }}"
+    >
+  </div>
+</div>

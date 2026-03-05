@@ -1,0 +1,135 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }} .home-catalogs__grid.slider {
+    display: grid;
+    gap: 32px;
+  }
+
+  .section-{{ section.id }} .home-catalogs__card.slider__slide {
+    width: 100%;
+    max-width: none;
+  }
+
+  @media screen and (max-width: 989px) {
+    .section-{{ section.id }} .home-catalogs__grid.slider {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .section-{{ section.id }} .home-catalogs__grid.slider::after {
+      content: '';
+      flex: 0 0 1rem;
+    }
+
+    .section-{{ section.id }} .home-catalogs__grid.slider .home-catalogs__card.slider__slide {
+      flex: 0 0 calc(80% - var(--gb-space-8));
+      min-width: calc(80% - var(--gb-space-8));
+      max-width: calc(80% - var(--gb-space-8));
+      scroll-snap-align: start;
+      border-radius: 28px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+      margin: 0;
+    }
+  }
+{%- endstyle -%}
+
+<section class="home-catalogs section-{{ section.id }}">
+  <div class="page-width">
+    <div class="home-categories__header" style="text-align:left;">
+      <h2 class="home-categories__title">{{ section.settings.heading }}</h2>
+    </div>
+
+    <slider-component class="slider-mobile-gutter">
+      <div
+        id="Slider-{{ section.id }}"
+        class="home-catalogs__grid slider slider--mobile grid"
+        role="list"
+        aria-label="{{ 'general.slider.name' | t }}"
+      >
+        {% for block in section.blocks %}
+          <div
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            class="home-catalogs__card slider__slide grid__item"
+            role="listitem"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% elsif block.settings.image_asset != blank %}
+              <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.button_label | escape }}" loading="lazy">
+            {% endif %}
+            {% if block.settings.button_label != blank %}
+              <a class="gb-btn" href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </slider-component>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home catálogos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Consulte os catálogos"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "catalog",
+      "name": "Catálogo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem"
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Nome do ficheiro do catálogo (ativo do tema)",
+          "info": "Ex.: catalogo.png (use se já estiver em assets)"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto do botão",
+          "default": "Ver produtos"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Home catálogos",
+      "blocks": [
+        {
+          "type": "catalog"
+        },
+        {
+          "type": "catalog"
+        },
+        {
+          "type": "catalog"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

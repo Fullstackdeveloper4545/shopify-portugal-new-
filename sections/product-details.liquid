@@ -1,0 +1,213 @@
+{%- style -%}
+  .product-details {
+    margin-top: 102px;
+    margin-bottom: 32px;
+  }
+  .product-details__heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: #111;
+  }
+  .product-details__list {
+    border-top: 1px solid #e6e6e6;
+  }
+  .product-details__item {
+    border-bottom: 1px solid #e6e6e6;
+  }
+  .product-details__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 18px 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #111;
+  }
+  .product-details__content {
+    padding: 0 0 18px;
+    color: #444;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .product-details__extras {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    display: grid;
+    gap: 8px;
+  }
+  .product-details__extras li {
+    font-weight: 600;
+    color: #111;
+  }
+  .product-details__caret {
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    color: #f76b1c;
+  }
+  details[open] .product-details__caret {
+    transform: rotate(180deg);
+  }
+@media (max-width: 749px) {
+    .product-details {
+      margin-top: 32px;
+      max-width:440px;
+      
+    }
+    .product-details__heading {
+      font-size: 24px;
+    }
+
+
+  }
+{%- endstyle -%}
+
+<div class="page-width product-details">
+  <h2 class="product-details__heading">Detalhes do produto</h2>
+  <div class="product-details__list">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'description' -%}
+          <details class="product-details__item" {{ block.shopify_attributes }}>
+            <summary class="product-details__summary">
+              {{ block.settings.title }}
+              <span class="product-details__caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </summary>
+            <div class="product-details__content rte">
+              {%- if product.description != blank -%}
+                {{ product.description }}
+              {%- else -%}
+                <p>Sem descrição disponível.</p>
+              {%- endif -%}
+            </div>
+          </details>
+        {%- when 'extra_text' -%}
+          <details class="product-details__item" {{ block.shopify_attributes }}>
+            <summary class="product-details__summary">
+              {{ block.settings.title }}
+              <span class="product-details__caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </summary>
+            <div class="product-details__content rte">
+              {%- liquid
+                assign v = product.selected_or_first_available_variant
+                assign has_data = false
+              -%}
+              {%- if v and v.weight > 0 -%}
+                {%- assign has_data = true -%}
+                <p><strong>Peso:</strong> {{ v.weight | weight_with_unit }}</p>
+              {%- endif -%}
+              {%- if has_data == false -%}
+                {{ block.settings.content }}
+              {%- endif -%}
+              <ul class="product-details__extras">
+                <li>Materials</li>
+                <li>Shipping &amp; Returns</li>
+                <li>Dimensions</li>
+                <li>Care Instructions</li>
+              </ul>
+            </div>
+          </details>
+        {%- when 'document' -%}
+          <details class="product-details__item" {{ block.shopify_attributes }}>
+            <summary class="product-details__summary">
+              {{ block.settings.title }}
+              <span class="product-details__caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </summary>
+            <div class="product-details__content rte">
+              {%- if block.settings.document_url != blank -%}
+                <a href="{{ block.settings.document_url }}" target="_blank" rel="noopener">
+                  {{ block.settings.link_label | default: block.settings.document_url }}
+                </a>
+              {%- else -%}
+                <p>Nenhum documento disponível.</p>
+              {%- endif -%}
+            </div>
+          </details>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product details",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "description",
+      "name": "Descrição do produto",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Descrição do produto"
+        }
+      ]
+    },
+    {
+      "type": "extra_text",
+      "name": "Texto adicional",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Outros detalhes"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Conteúdo",
+          "default": "<p></p>"
+        }
+      ]
+    },
+    {
+      "type": "document",
+      "name": "Documento do produto",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Documento Produto"
+        },
+        {
+          "type": "url",
+          "id": "document_url",
+          "label": "Link do documento"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Texto do link",
+          "default": "Ver documento"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "settings": []
+}
+{% endschema %}

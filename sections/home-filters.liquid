@@ -1,0 +1,80 @@
+<section class="home-filters">
+  <div class="page-width">
+    <div class="home-filters__row">
+      <div>
+        <select aria-label="{{ section.settings.select_one_label }}">
+          <option selected disabled>{{ section.settings.select_one_label }}</option>
+          {% assign options = section.settings.select_one_options | split: ',' %}
+          {% for option in options %}
+            {% if option != blank %}
+              <option value="{{ option | strip }}">{{ option | strip }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <select aria-label="{{ section.settings.select_two_label }}">
+          <option selected disabled>{{ section.settings.select_two_label }}</option>
+          {% assign options_two = section.settings.select_two_options | split: ',' %}
+          {% for option in options_two %}
+            {% if option != blank %}
+              <option value="{{ option | strip }}">{{ option | strip }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <button class="gb-btn" type="button">{{ section.settings.button_label }}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home filtros",
+  "settings": [
+    {
+      "type": "text",
+      "id": "select_one_label",
+      "label": "Label do primeiro seletor",
+      "default": "Selecionar marca"
+    },
+    {
+      "type": "text",
+      "id": "select_one_options",
+      "label": "Opções do primeiro seletor (separadas por vírgula)",
+      "default": "Bosch, Dewalt, Vito"
+    },
+    {
+      "type": "text",
+      "id": "select_two_label",
+      "label": "Label do segundo seletor",
+      "default": "Selecionar tipo de Produto"
+    },
+    {
+      "type": "text",
+      "id": "select_two_options",
+      "label": "Opções do segundo seletor (separadas por vírgula)",
+      "default": "Ferramentas, Pintura, Jardim"
+    },
+    {
+      "type": "text",
+      "id": "select_three_label",
+      "label": "Placeholder de pesquisa",
+      "default": "Pesquisar"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Pesquisar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home filtros"
+    }
+  ]
+}
+{% endschema %}

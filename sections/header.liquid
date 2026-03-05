@@ -1,0 +1,316 @@
+<header class="gb-header">
+  {% if section.settings.show_topbar %}
+    <div class="gb-topbar" data-topbar>
+      <div class="page-width gb-topbar__inner">
+        <div class="gb-topbar__text">
+          <img src="{{ 'icon-box.svg' | asset_url }}" alt="" width="20" height="20" loading="lazy" style="margin-right:8px;">
+          <span>{{ section.settings.topbar_text }}</span>
+        </div>
+        {% if section.settings.topbar_dismissible %}
+          <button class="gb-topbar__close" type="button" aria-label="{{ 'general.accessibility.close' | t | default: 'Fechar' }}" data-topbar-close>
+            &times;
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="page-width gb-mainbar">
+    <button class="gb-menu-toggle" type="button" aria-expanded="false" aria-controls="GbNavBar" aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}" data-menu-toggle>
+      <svg class="gb-menu-icon" viewBox="0 0 18 16" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M1 .5a.5.5 0 1 0 0 1h15.71a.5.5 0 0 0 0-1zM.5 8a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1A.5.5 0 0 1 .5 8m0 7a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5"/>
+      </svg>
+    </button>
+    <span class="gb-mobile-title" aria-hidden="true">PRODUTOS</span>
+
+    <a href="{{ routes.root_url }}" class="gb-logo" aria-label="{{ shop.name }}">
+      {% if settings.logo != blank %}
+        {% liquid
+          assign logo_alt = settings.logo.alt | default: shop.name | escape
+          assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio | default: 50
+        %}
+        {{ settings.logo | image_url: width: 260 | image_tag: width: settings.logo_width, height: logo_height, alt: logo_alt, class: 'gb-logo__img' }}
+      {% else %}
+        <img src="{{ 'ba817d301cee7ff0e647f43db1727c6b0d523bf1.png' | asset_url }}" alt="{{ shop.name }}" width="317" height="65" loading="lazy" class="gb-logo__img">
+      {% endif %}
+    </a>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="gb-search">
+      <img src="{{ 'icon-search.svg' | asset_url }}" alt="" width="22" height="22" loading="lazy">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder | escape }}">
+    </form>
+
+    <div class="gb-icons">
+      {% if shop.customer_accounts_enabled and section.settings.show_account_icon %}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'customer.account_fallback' | t | default: 'Conta' }}">
+          <img class="gb-icon" src="{{ 'icon-account.svg' | asset_url }}" alt="" width="30" height="30" loading="lazy">
+        </a>
+      {% endif %}
+      <a href="{{ routes.cart_url }}" class="gb-cart" id="cart-icon-bubble" aria-label="{{ 'templates.cart.cart' | t | default: 'Carrinho' }}">
+        {% if cart == empty %}
+          <img class="gb-icon" src="{{ 'icon-cart-empty.svg' | asset_url }}" alt="" width="30" height="30" loading="lazy">
+        {% else %}
+          <img class="gb-icon" src="{{ 'icon-cart.svg' | asset_url }}" alt="" width="30" height="30" loading="lazy">
+        {% endif %}
+        {% if cart != empty %}
+          <span class="cart-count-bubble">
+            {% if cart.item_count < 100 %}
+              {{ cart.item_count }}
+            {% else %}
+              99+
+            {% endif %}
+          </span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+
+  {% assign primary_links = "Produtos|/pages/produtos,Ferramentas|#,Ferragens|#,Pintura|#,Jardim|#,Promoções|/pages/promocoes" | split: "," %}
+  {% assign secondary_links = "Serviços|/pages/servicos,Sobre Nós|/pages/about-us,Blog|/pages/blog,Contactos|/pages/contactos" | split: "," %}
+  <nav class="gb-nav-bar" id="GbNavBar" aria-label="Principal" data-nav>
+    <div class="gb-nav__menu gb-nav__menu--primary">
+      {% assign mega_categories = "
+        Aquecimento e Climatização|icon-fire.svg,
+        Arrumação|icon-box.svg,
+        Canalização|icon-washing.svg,
+        Casas de Banho|icon-clipboard.svg,
+        Construção|icon-ruler.svg,
+        Cozinhas|icon-serving-dish.svg,
+        Decoração e Tapetes|icon-leaf.svg,
+        Eletricidade|icon-lightning-bolt.svg,
+        Ferragens|icon-map-pin.svg,
+        Ferramentas|icon-iron.svg,
+        Iluminação|icon-lightning-bolt.svg,
+        Jardim|icon-plant.svg,
+        Pavimentos e Revestimentos|square.svg,
+        Pintura, Drogaria e Limpeza|icon-price-tag.svg,
+        Portas, Janelas e Escadas|icon-lock.svg
+      " | split: "," %}
+
+      {% for item in primary_links %}
+        {% assign parts = item | split: "|" %}
+        {% assign label = parts[0] %}
+        {% assign url = parts[1] %}
+        {% if forloop.first %}
+          <div class="gb-nav__item gb-nav__item--has-mega" data-mega-root>
+            <a class="gb-nav__link" href="{{ url }}" data-mega-trigger aria-expanded="false">{{ label | upcase }}</a>
+            <div class="gb-mega" data-mega-panel>
+              <div class="gb-mega__inner page-width">
+                <div class="gb-mega__title">O que procura?</div>
+                <div class="gb-mega__grid">
+                  {% for category in mega_categories %}
+                    {% assign category_parts = category | strip | split: "|" %}
+                    {% assign category_label = category_parts[0] %}
+                    {% assign category_icon = category_parts[1] | default: 'icon-box.svg' %}
+                    <a href="{{ url }}" class="gb-mega__item">
+                      <span class="gb-mega__icon">
+                        {% if category_label contains 'Pavimentos' %}
+                          <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.65006 0.472201L11.1631 1.85434L12.6761 0.472201H9.65006ZM13.9252 0.472201L15.4383 1.85434L16.9513 0.472201H13.9252ZM18.2004 0.472201L19.8209 1.9525H20.7583C21.83 1.9525 21.83 0.472201 20.7583 0.472201H18.2004ZM19.9725 2.42488V19.5267C20.5242 19.5267 21.0048 19.6065 21.3301 19.3094C21.4769 19.1753 21.568 18.9903 21.568 18.787V2.19449C21.1315 2.49509 20.574 2.42488 19.9725 2.42488ZM19.0888 17.5741L17.5758 16.1919L16.0628 17.5741H19.0888ZM14.8137 17.5741L13.3006 16.1919L11.7876 17.5741H14.8137ZM10.5385 17.5741L9.02543 16.1919L7.51239 17.5741H10.5385ZM6.26329 17.5741L4.75025 16.1919L3.23721 17.5741H6.26329ZM1.98811 17.5741L0.518248 16.2314V17.0219C0.518248 17.3252 0.789776 17.574 1.12268 17.574L1.98811 17.5741ZM0.000147335 15.6608V1.02454C0.000147335 0.461005 0.504813 0 1.12173 0H20.7584C21.6181 0 22.0863 0.624904 22.0863 1.20684V18.787C22.0863 19.4558 21.4866 20 20.7584 20H19.7136C19.5707 20 19.4546 19.894 19.4546 19.7634V18.0473H1.12158C0.503708 18.0473 0 17.5872 0 17.0228L0.000147335 15.6608ZM0.518248 3.76764L4.12585 0.472156H1.12197C0.788082 0.472156 0.517536 0.719317 0.517536 1.0243L0.518248 3.76764ZM5.3748 0.472156L6.88784 1.85429L8.40088 0.472156H5.3748ZM2.61261 5.76046L6.52232 2.189L4.75025 0.570248L0.840545 4.14171L2.61261 5.76046ZM7.072 2.35459L9.02541 0.570181L10.7975 2.18894L6.88777 5.76039L5.1157 4.14164L7.072 2.35459ZM2.42938 6.26169L0.518199 4.51586V7.75256L2.61264 9.6658L4.3847 8.04704L2.42938 6.26169ZM4.38374 15.8578L2.61168 17.4766L0.517241 15.5633V12.3257L4.38374 15.8578ZM2.97816 13.9051L4.75023 12.2864L8.65993 15.8578L6.88787 17.4766L2.97816 13.9051ZM0.518076 11.5791L2.24603 9.99981L0.517119 8.42048L0.518076 11.5791ZM2.97816 6.09452L6.88787 9.66598L8.65993 8.04722L4.75023 4.47576L2.97816 6.09452ZM19.4545 2.75977L17.9415 4.14191L19.4545 5.52405V2.75977ZM17.9425 11.9527L19.4555 13.3349V10.5707L17.9425 11.9527ZM6.52234 10L4.75028 8.38128L0.84057 11.9527L2.61264 13.5715L6.52234 10ZM15.8039 13.9053L17.576 12.2866L19.4545 14.0026V17.2402L15.8039 13.9053ZM15.2551 14.0727L17.2095 15.858L15.4374 17.4768L11.5287 13.9053L13.3007 12.2866L15.2551 14.0727ZM19.348 10.0001L17.576 8.3813L13.6663 11.9528L15.4383 13.5715L19.348 10.0001ZM10.9799 14.0727L12.9343 15.858L11.1622 17.4768L7.25349 13.9053L9.02556 12.2866L10.9799 14.0727ZM15.0729 10.0001L13.3008 8.3813L9.39108 11.9528L11.1631 13.5715L15.0729 10.0001ZM10.7967 10.0001L9.02462 8.3813L5.1159 11.9528L6.88796 13.5715L10.7967 10.0001ZM17.5762 4.47594L15.8041 6.0947L19.4547 9.42945V6.19185L17.5762 4.47594ZM15.2572 6.26297L13.3009 4.47594L11.5289 6.0947L15.4386 9.66615L17.2106 8.0474L15.2572 6.26297ZM11.1633 5.76077L9.39123 4.14202L13.3009 0.57056L15.073 2.18932L11.1633 5.76077ZM15.6227 2.3549L17.5761 0.570493L19.3482 2.18925L15.4384 5.7607L13.6664 4.14195L15.6227 2.3549ZM10.981 6.2629L9.02477 4.47587L7.2527 6.09463L11.1634 9.66609L12.9355 8.04733L10.981 6.2629Z" fill="#FF6701"/>
+                          </svg>
+                        {% else %}
+                          <img src="{{ category_icon | strip | asset_url }}" alt="" loading="lazy" width="26" height="26">
+                        {% endif %}
+                      </span>
+                      <span class="gb-mega__text">{{ category_label }}</span>
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% elsif label == 'Ferramentas' %}
+          {% assign tools_columns = '
+            Ferramentas Elétricas e Manuais|Ferramentas Elétricas,Ferramentas de Mão,Ferramentas Profissionais,Acessórios e Consumíveis para Ferramentas,Medidores, Níveis e Detetores;
+            Ferramentas de Oficina e Garagem|Máquinas Estacionárias,Equipamentos de Oficina,Compressores e Ferramentas Pneumáticas,Soldadura,Aspiradores Profissionais,Geradores;
+            Arrumação e Proteção|Transporte e Arrumação de Ferramentas,Roupas de Trabalho,Equipamento de Proteção Individual (EPI)
+          ' | split: ';' %}
+          <div class="gb-nav__item gb-nav__item--has-mega" data-mega-root>
+            <button class="gb-nav__link" type="button" data-mega-trigger aria-expanded="false">{{ label | upcase }}</button>
+            <div class="gb-mega gb-mega--tools" data-mega-panel>
+              <div class="gb-mega__inner page-width">
+                <div class="gb-mega__title">Ferramentas</div>
+                <div class="gb-mega__columns">
+                  {% for col in tools_columns %}
+                    {% assign col_parts = col | strip | split: '|' %}
+                    {% assign col_title = col_parts[0] | strip %}
+                    {% assign col_items = col_parts[1] | split: ',' %}
+                    <div class="gb-mega__column">
+                      <div class="gb-mega__column-title">{{ col_title }}</div>
+                      <ul class="gb-mega__list">
+                        {% for tool in col_items %}
+                          <li><a href="{{ url }}" class="gb-mega__text gb-mega__text--link">{{ tool | strip }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <a class="gb-nav__link" href="{{ url }}">{{ label | upcase }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="gb-nav__menu gb-nav__menu--secondary">
+      {% for item in secondary_links %}
+        {% assign parts = item | split: "|" %}
+        <a class="gb-nav__link" href="{{ parts[1] }}">{{ parts[0] | upcase }}</a>
+      {% endfor %}
+    </div>
+  </nav>
+  <script>
+    (() => {
+      const header = document.currentScript.closest('.gb-header');
+      const toggle = header?.querySelector('[data-menu-toggle]');
+      const nav = header?.querySelector('[data-nav]');
+      if (!header || !toggle || !nav) return;
+
+      const closeMenu = () => {
+        header.classList.remove('menu-open');
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      };
+
+      toggle.addEventListener('click', () => {
+        const isOpen = !header.classList.contains('menu-open');
+        header.classList.toggle('menu-open', isOpen);
+        nav.classList.toggle('is-open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      nav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+          closeMenu();
+        }
+      });
+
+      const megaSets = Array.from(header.querySelectorAll('[data-mega-root]')).map((root) => {
+        const trigger = root.querySelector('[data-mega-trigger]');
+        const panel = root.querySelector('[data-mega-panel]');
+        return { root, trigger, panel, timer: null };
+      }).filter((set) => set.trigger && set.panel);
+
+      const closeAllMega = () => {
+        megaSets.forEach((set) => {
+          if (set.timer) clearTimeout(set.timer);
+          set.root.classList.remove('is-open');
+          set.panel.classList.remove('is-open');
+          set.trigger.setAttribute('aria-expanded', 'false');
+        });
+      };
+
+      const openMega = (current) => {
+        if (!current) return;
+        megaSets.forEach((set) => {
+          if (set.timer) clearTimeout(set.timer);
+          if (set === current) {
+            set.root.classList.add('is-open');
+            set.panel.classList.add('is-open');
+            set.trigger.setAttribute('aria-expanded', 'true');
+          } else {
+            set.root.classList.remove('is-open');
+            set.panel.classList.remove('is-open');
+            set.trigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      };
+
+      const scheduleClose = (set) => {
+        if (window.matchMedia('(max-width: 900px)').matches) return;
+        if (set.timer) clearTimeout(set.timer);
+        set.timer = setTimeout(() => {
+          set.root.classList.remove('is-open');
+          set.panel.classList.remove('is-open');
+          set.trigger.setAttribute('aria-expanded', 'false');
+        }, 200);
+      };
+
+      megaSets.forEach((set) => {
+        set.trigger.addEventListener('click', () => {
+          const isMobile = window.matchMedia('(max-width: 900px)').matches;
+          const isOpen = set.root.classList.contains('is-open');
+          if (isOpen && isMobile) {
+            closeAllMega();
+          } else {
+            openMega(set);
+          }
+        });
+
+        set.trigger.addEventListener('mouseenter', () => {
+          if (window.matchMedia('(min-width: 901px)').matches) openMega(set);
+        });
+        set.panel.addEventListener('mouseenter', () => {
+          if (window.matchMedia('(min-width: 901px)').matches) openMega(set);
+        });
+
+        [set.trigger, set.panel].forEach((el) => {
+          el.addEventListener('mouseleave', () => scheduleClose(set));
+          el.addEventListener('mouseenter', () => {
+            if (set.timer) clearTimeout(set.timer);
+          });
+        });
+
+        set.panel.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', closeAllMega);
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        const clickedInMega = megaSets.some(({ root }) => root.contains(event.target));
+        if (!clickedInMega) {
+          closeAllMega();
+        }
+      });
+    })();
+  </script>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_topbar",
+      "default": true,
+      "label": "Mostrar barra superior"
+    },
+    {
+      "type": "text",
+      "id": "topbar_text",
+      "default": "Portes de envio gratuitos",
+      "label": "Texto da barra superior"
+    },
+    {
+      "type": "checkbox",
+      "id": "topbar_dismissible",
+      "default": true,
+      "label": "Permitir fechar barra superior"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder da pesquisa",
+      "default": "Pesquisar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account_icon",
+      "label": "Mostrar ícone da conta",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,148 @@
+<section class="home-categories section-space">
+  <div class="page-width">
+    <div class="home-categories__header">
+      <h2 class="home-categories__title">{{ section.settings.heading }}</h2>
+      <p class="home-categories__subtitle">{{ section.settings.subheading | newline_to_br }}</p>
+    </div>
+
+    {% assign cards = section.blocks %}
+    <div class="home-categories__layout">
+      {% if cards[0] %}
+        <div class="home-categories__card home-categories__card--primary" {{ cards[0].shopify_attributes }}>
+          {% if cards[0].settings.image != blank %}
+            {{ cards[0].settings.image | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+          {% else %}
+            <img src="{{ '0dafb934403bdfaaa54c944b73a6b9cbcf05d72c.jpg' | asset_url }}" alt="{{ cards[0].settings.title | default: 'Jardim' }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+          {% endif %}
+          <div class="home-categories__label">
+            <span class="h3">{{ cards[0].settings.title }}</span>
+            {% if cards[0].settings.button_label != blank %}
+              <a class="gb-btn home-categories__cta" href="{{ cards[0].settings.link }}">{{ cards[0].settings.button_label }}</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="home-categories__stack">
+        {% if cards[1] %}
+          <div class="home-categories__card home-categories__card--wide" {{ cards[1].shopify_attributes }}>
+            {% if cards[1].settings.image != blank %}
+              {{ cards[1].settings.image | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <img src="{{ '3bd3b2d24500f019d77619a857e8a1e5eecc922.png' | asset_url }}" alt="{{ cards[1].settings.title | default: 'Ferramentas' }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            {% endif %}
+            <div class="home-categories__label">
+              <span class="h3">{{ cards[1].settings.title }}</span>
+              {% if cards[1].settings.button_label != blank %}
+                <a class="gb-btn home-categories__cta" href="{{ cards[1].settings.link }}">{{ cards[1].settings.button_label }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="home-categories__stack-row">
+          {% if cards[2] %}
+          <div class="home-categories__card home-categories__card--small" {{ cards[2].shopify_attributes }}>
+            {% if cards[2].settings.image != blank %}
+              {{ cards[2].settings.image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <img src="{{ '4b00a339629c99533ca68cedae2d4a41d8f92db.jpg' | asset_url }}" alt="{{ cards[2].settings.title | default: 'Ferragens' }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            {% endif %}
+            <div class="home-categories__label home-categories__label--centered">
+              <span class="h3">{{ cards[2].settings.title }}</span>
+              {% if cards[2].settings.button_label != blank %}
+                <a class="gb-btn home-categories__cta" href="{{ cards[2].settings.link }}">{{ cards[2].settings.button_label }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+          {% if cards[3] %}
+            <div class="home-categories__card home-categories__card--small" {{ cards[3].shopify_attributes }}>
+              {% if cards[3].settings.image != blank %}
+                {{ cards[3].settings.image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+              {% else %}
+                <img src="{{ '0da41b2465d18b5478879fa3f741f3f71e6ce9f.png' | asset_url }}" alt="{{ cards[3].settings.title | default: 'Pintura' }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+              {% endif %}
+              <div class="home-categories__label home-categories__label--centered">
+                <span class="h3">{{ cards[3].settings.title | default: 'Pintura' }}</span>
+                {% if cards[3].settings.button_label != blank %}
+                  <a class="gb-btn home-categories__cta" href="{{ cards[3].settings.link }}">{{ cards[3].settings.button_label }}</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home categorias",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Tudo o que precisa para bricolage, construção e jardim"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Descubra materiais de qualidade, ferramentas profissionais e soluções completas para cada projeto."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoria",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Categoria"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto do botão",
+          "default": "Comprar"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Home categorias",
+      "blocks": [
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,107 @@
+<section class="home-blog">
+  <div class="page-width">
+    <div class="home-products__header">
+      <div>
+        <h2 class="home-products__title">Dicas de Bricolagem, Casa e Jardim</h2>
+        <p class="home-products__text">Inspire-se com conteúdos práticos e dicas úteis para os seus projetos <br> de bricolagem, decoração, jardinagem e manutenção da casa.</p>
+      </div>
+      {% if section.settings.button_label != blank %}
+        <div class="home-blog__cta">
+          <a class="gb-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="home-blog__grid">
+      {% assign featured_blog = blogs[section.settings.blog] %}
+      {% if featured_blog != blank %}
+        {% for article in featured_blog.articles limit: section.settings.articles_to_show %}
+          <article class="home-blog__card">
+            <a href="{{ article.url }}">
+              {% if article.image %}
+                {{ article.image | image_url: width: 900 | image_tag: loading: 'lazy' }}
+              {% endif %}
+              <div class="home-blog__body">
+                <h3>{{ article.title }}</h3>
+                <p class="home-products__text">{{ article.excerpt_or_content | strip_html | truncate: 90 }}</p>
+                <small>{{ article.published_at | date: "%d %b %Y" }}</small>
+              </div>
+            </a>
+          </article>
+        {% endfor %}
+      {% else %}
+        <article class="home-blog__card">
+          <img src="{{ '3ce8e61c69bb8e153c122e2c8c6fa3aa907e5f26.jpg' | asset_url }}" alt="Artigo exemplo 1" loading="lazy">
+          <div class="home-blog__body">
+            <h3>A melhor Lixadora Elétrica para <br /> projetos de Madeira</h3>
+            <small>Data</small>
+          </div>
+        </article>
+        <article class="home-blog__card">
+          <img src="{{ '18adb5906584fb8739abaaa3296fe782775d26b1.png' | asset_url }}" alt="Artigo exemplo 2" loading="lazy">
+          <div class="home-blog__body">
+            <h3>Como preparar o jardim para <br /> a primavera</h3>
+            <small>Data</small>
+          </div>
+        </article>
+        <article class="home-blog__card">
+          <img src="{{ '95acb7f2bc21275b0605244864f58bb72900692c.jpg' | asset_url }}" alt="Artigo exemplo 3" loading="lazy">
+          <div class="home-blog__body">
+            <h3>DIY: prateleiras criativas para <br /> arrumação</h3>
+            <small>Data</small>
+          </div>
+        </article>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home blog",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Dicas de Bricolagem, Casa e Jardim"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Inspire-se com conteúdos práticos e dicas úteis para os seus projetos de bricolagem, decoração, jardinagem e manutenção da casa."
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "articles_to_show",
+      "label": "Artigos a mostrar",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Saber mais"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home blog"
+    }
+  ]
+}
+{% endschema %}
