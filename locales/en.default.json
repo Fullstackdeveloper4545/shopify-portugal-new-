@@ -89,8 +89,7 @@
     "total_reviews": "total reviews",
     "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
     "collapsible_content_title": "Collapsible content",
-    "complementary_products": "Complementary products",
-    "close": "Close"
+    "complementary_products": "Complementary products"
   },
   "blogs": {
     "article": {
