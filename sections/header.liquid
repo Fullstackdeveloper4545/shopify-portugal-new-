@@ -138,7 +138,7 @@
                     {% assign col_title_details = col_title[0] | split: '_' | default: "..." %}
                     {% assign col_items = col_parts[1] | split: ',,' %}
                     <div class="gb-mega__column">
-                      <div class="gb-mega__column-title"><a href="{{ col_title_details[0] }}">{{ col_title_details[1] }}</a></div>
+                      <div class="gb-mega__column-title"><a href="{{ col_title_details[0] }}">{{ col_title_details[1] | default: '...' }}</a></div>
                       <ul class="gb-mega__list">
                         {% for tool in col_items %}
                           {% assign subcat_name = tool | strip | split: '_' %}
