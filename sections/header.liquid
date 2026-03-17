@@ -71,7 +71,7 @@
     <div class="gb-nav__menu gb-nav__menu--primary">
       {% assign mega_categories = "
         Aquecimento e Climatização|icon-fire.svg|/collections/aquecimento-e-climatizacao,
-        Arrumação|icon-box.svg,
+        Arrumação|icon-box.svg|/collections/arrumacao,
         Canalização|icon-washing.svg,
         Casas de Banho|icon-clipboard.svg,
         Construção|icon-ruler.svg,
@@ -102,7 +102,8 @@
                     {% assign category_parts = category | strip | split: "|" %}
                     {% assign category_label = category_parts[0] %}
                     {% assign category_icon = category_parts[1] | default: 'icon-box.svg' %}
-                    <a href="{{ url }}" class="gb-mega__item">
+                    {% assign category_url = category_parts[2] | default: url %}
+                    <a href="{{ category_url }}" class="gb-mega__item">
                       <span class="gb-mega__icon">
                         {% if category_label contains 'Pavimentos' %}
                           <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
