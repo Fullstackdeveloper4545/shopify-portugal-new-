@@ -135,7 +135,7 @@
                   {% for col in tools_columns %}
                     {% assign col_parts = col | strip | split: '|' %}
                     {% assign col_title = col_parts[0] | strip %}
-                    {% assign col_title_name = col_title[0] | split: '_' %}
+                    {% assign col_title_name = col_title[0] | split: '_' | default: "..." %}
                     {% assign col_title_url = col_title[1] | split: '_' | default: url %}
                     {% assign col_items = col_parts[1] | split: ',,' %}
                     <div class="gb-mega__column">
