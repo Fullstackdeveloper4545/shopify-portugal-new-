@@ -122,7 +122,7 @@
           </div>
         {% elsif label == 'Ferramentas' %}
           {% assign tools_columns = '
-            Ferramentas Elétricas e Manuais|Ferramentas Elétricas,Ferramentas de Mão,Ferramentas Profissionais,Acessórios e Consumíveis para Ferramentas,Medidores, Níveis e Detetores;
+            Ferramentas Elétricas e Manuais|Ferramentas Elétricas_/collections/ferramentas-eletricas,Ferramentas de Mão,Ferramentas Profissionais,Acessórios e Consumíveis para Ferramentas,Medidores, Níveis e Detetores;
             Ferramentas de Oficina e Garagem|Máquinas Estacionárias,Equipamentos de Oficina,Compressores e Ferramentas Pneumáticas,Soldadura,Aspiradores Profissionais,Geradores;
             Arrumação e Proteção|Transporte e Arrumação de Ferramentas,Roupas de Trabalho,Equipamento de Proteção Individual (EPI)
           ' | split: ';' %}
@@ -140,7 +140,7 @@
                       <div class="gb-mega__column-title">{{ col_title }}</div>
                       <ul class="gb-mega__list">
                         {% for tool in col_items %}
-                          <li><a href="{{ url }}" class="gb-mega__text gb-mega__text--link">{{ tool | strip }}</a></li>
+                          <li><a href="{{ tool[1] | split: '_' | default: url }}" class="gb-mega__text gb-mega__text--link">{{ tool[0] | split: '_' | strip }}</a></li>
                         {% endfor %}
                       </ul>
                     </div>
