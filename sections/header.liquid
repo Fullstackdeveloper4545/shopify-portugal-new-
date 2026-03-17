@@ -122,9 +122,9 @@
           </div>
         {% elsif label == 'Ferramentas' %}
           {% assign tools_columns = '
-            Ferramentas Elétricas e Manuais|Ferramentas Elétricas_/collections/ferramentas-eletricas,Ferramentas de Mão_/collections/ferramentas-de-mao,Ferramentas Profissionais_/collections/ferramentas-profissionais,Acessórios e Consumíveis para Ferramentas_/collections/acessorios-e-consumiveis-para-ferramentas,Medidores, Níveis e Detetores_/collections/medidores-niveis-e-detetores;
-            Ferramentas de Oficina e Garagem|Máquinas Estacionárias,Equipamentos de Oficina,Compressores e Ferramentas Pneumáticas,Soldadura,Aspiradores Profissionais,Geradores;
-            Arrumação e Proteção|Transporte e Arrumação de Ferramentas,Roupas de Trabalho,Equipamento de Proteção Individual (EPI)
+            Ferramentas Elétricas e Manuais|Ferramentas Elétricas_/collections/ferramentas-eletricas,,Ferramentas de Mão_/collections/ferramentas-de-mao,,Ferramentas Profissionais_/collections/ferramentas-profissionais,,Acessórios e Consumíveis para Ferramentas_/collections/acessorios-e-consumiveis-para-ferramentas,,Medidores, Níveis e Detetores_/collections/medidores-niveis-e-detetores;
+            Ferramentas de Oficina e Garagem|Máquinas Estacionárias,,Equipamentos de Oficina,,Compressores e Ferramentas Pneumáticas,,Soldadura,,Aspiradores Profissionais,,Geradores;
+            Arrumação e Proteção|Transporte e Arrumação de Ferramentas,,Roupas de Trabalho,,Equipamento de Proteção Individual (EPI)
           ' | split: ';' %}
           <div class="gb-nav__item gb-nav__item--has-mega" data-mega-root>
             <button class="gb-nav__link" type="button" data-mega-trigger aria-expanded="false">{{ label | upcase }}</button>
@@ -135,7 +135,7 @@
                   {% for col in tools_columns %}
                     {% assign col_parts = col | strip | split: '|' %}
                     {% assign col_title = col_parts[0] | strip %}
-                    {% assign col_items = col_parts[1] | split: ',' %}
+                    {% assign col_items = col_parts[1] | split: ',,' %}
                     <div class="gb-mega__column">
                       <div class="gb-mega__column-title">{{ col_title }}</div>
                       <ul class="gb-mega__list">
