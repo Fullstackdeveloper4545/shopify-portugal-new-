@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -64,7 +73,7 @@
   },
   "accessibility": {
     "skip_to_text": "Saltar para o conteúdo",
-    "close": "Encerrar",
+    "close": "Fechar",
     "unit_price_separator": "por",
     "vendor": "Fornecedor:",
     "error": "Erro",
