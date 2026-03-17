@@ -140,7 +140,8 @@
                       <div class="gb-mega__column-title">{{ col_title }}</div>
                       <ul class="gb-mega__list">
                         {% for tool in col_items %}
-                          <li><a href="{{ tool[1] | split: '_' | default: url }}" class="gb-mega__text gb-mega__text--link">{{ tool[0] | split: '_' | strip | default: tool }}</a></li>
+                          {% assign subcat_name = tool | strip | split: '_' %}
+                          <li><a href="{{ subcat_name[1] | default: url }}" class="gb-mega__text gb-mega__text--link">{{ subcat_name[0] }}</a></li>
                         {% endfor %}
                       </ul>
                     </div>
